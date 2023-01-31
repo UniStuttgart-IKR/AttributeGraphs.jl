@@ -1,6 +1,8 @@
-using AttributeGraphs
-using Test
+using AttributeGraphs, Graphs
+using Test, TestSetExtensions
+
+using MultiGraphs
 
 @testset "AttributeGraphs.jl" begin
-    # Write your tests here.
+    @includetests ["constructors","graphs", "attributes"]
 end

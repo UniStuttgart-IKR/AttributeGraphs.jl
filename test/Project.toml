@@ -1,0 +1,5 @@
+[deps]
+AttributeGraphs = "d091dd56-f8c5-469d-b7f7-ff847498145f"
+Graphs = "86223c79-3864-5bf0-83f7-82e725a168b6"
+MultiGraphs = "2815cbbd-0d7d-431b-a8da-1940906b5714"
+TestSetExtensions = "98d24dd4-01ad-11ea-1b02-c9a08f80db04"
