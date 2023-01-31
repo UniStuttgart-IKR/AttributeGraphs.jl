@@ -1,0 +1,13 @@
+name = "AttributeGraphs"
+uuid = "d091dd56-f8c5-469d-b7f7-ff847498145f"
+authors = ["fchrstou <filippos.christou@ikr.uni-stuttgart.de> and contributors"]
+version = "0.1.0"
+
+[compat]
+julia = "1.8"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
