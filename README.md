@@ -1,5 +1,8 @@
 # AttributeGraphs.jl
 
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://UniStuttgart-IKR.github.io/AttributeGraphs.jl/dev)
+[![codecov.io](http://codecov.io/github/UniStuttgart-IKR/AttributeGraphs.jl/coverage.svg?branch=main)](http://codecov.io/github/UniStuttgart-IKR/AttributeGraphs.jl?branch=main)
+
 `AttributeGraphs.jl` is an effort to make a dead-simple, type-stable, flexible, compliant with [`Graphs.jl`](https://github.com/JuliaGraphs/Graphs.jl) container of a graph and its attributes.
 It wraps an `AbstractGraph`, thus in theory it can play with all subtypes, and provides API for edge, vertices and graph properties.
 The type of properties is parametric and fully flexible.

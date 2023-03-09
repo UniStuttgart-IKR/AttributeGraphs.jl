@@ -1,4 +1,4 @@
-using Documenter, AttributeGraphs
+using Documenter, AttributeGraphs, Graphs
 
 makedocs(sitename="AttributeGraphs.jl",
     pages = [
