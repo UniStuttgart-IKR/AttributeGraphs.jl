@@ -1,7 +1,7 @@
 using AttributeGraphs, Graphs
 using Test, TestSetExtensions
 
-using MultiGraphs
+using WMultiGraphs
 
 @testset "AttributeGraphs.jl" begin
     @includetests ["constructors","graphs", "attributes"]
