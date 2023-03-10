@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Usage and Examples · AttributeGraphs.jl</title><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">AttributeGraphs.jl</a></span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Introduction</a></li><li class="is-active"><a class="tocitem" href>Usage and Examples</a><ul class="internal"><li><a class="tocitem" href="#Opinionated-approach"><span>Opinionated approach</span></a></li><li><a class="tocitem" href="#General-approach"><span>General approach</span></a></li></ul></li><li><a class="tocitem" href="../API/">API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Usage and Examples</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Usage and Examples</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/UniStuttgart-IKR/AttributeGraphs.jl/blob/main/docs/src/usage.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Usage"><a class="docs-heading-anchor" href="#Usage">Usage</a><a id="Usage-1"></a><a class="docs-heading-anchor-permalink" href="#Usage" title="Permalink"></a></h1><p>Following a walkthrough of the package and the features. An <a href="../API/#AttributeGraphs.AttributeGraph"><code>AttributeGraph</code></a> is quite straightforwardingly defined by 4 fields:</p><ul><li>the underlying wrapped graph</li><li>the vertex attribute data structure</li><li>the edge attribute data structure</li><li>the graph attribute data structure</li></ul><p>That is because we tried to manufacture the least speculative way to define a such. As this might not be able to do some easy out-of-the-box operations we also proposed a more <a href="#Opinionated-approach">Opinionated approach</a></p><h2 id="Opinionated-approach"><a class="docs-heading-anchor" href="#Opinionated-approach">Opinionated approach</a><a id="Opinionated-approach-1"></a><a class="docs-heading-anchor-permalink" href="#Opinionated-approach" title="Permalink"></a></h2><p>The default operation of <code>AttributeGraphs</code> is an opinionated one. By calling <code>AttributeGraph()</code>, you are already within the realm of our preferences.</p><pre><code class="language-julia-repl hljs">julia&gt; using AttributeGraphs, Graphs
+
+julia&gt; AttributeGraph() |&gt; typeof
+AttributeGraph{Int64, SimpleGraph{Int64}, Vector{Missing}, Dict{Tuple{Int64, Int64, Int64}, Missing}, Missing}</code></pre><p>This approach treats graph data as following:</p><ul><li>The vertex attributes data structure is a vector. </li></ul><p>The index of the vector corresponds to the index of the vertex. This way we want to be closer to the Graphs.jl implementation.</p><ul><li>The edge attributes data structure is a <code>Dict{Tuple{Int, Int, Int}}</code>.</li></ul><p>Non surpisingly, each edge attribute is indexed by the source and destination node. The third integer is the multiplicity for MultiGraphs and if non given, <code>1</code> is assumed.</p><ul><li>The graph attributes data structure is non existent. The user type is directly what it is.</li></ul><p>However some functionality is provided from {add,rem,has,get}graphattr[!] for <code>AbstractDict</code>. For trivial situation you should directly use <a href="../API/#AttributeGraphs.graph_attr-Union{Tuple{AttributeGraphs.AbstractAttibuteGraph{T, G}}, Tuple{G}, Tuple{T}} where {T&lt;:Integer, G&lt;:AbstractGraph}"><code>graph_attr</code></a>.</p><p>Following we define a <code>AttributeGraph</code> with vertex and edge attributes of <code>String</code> and graph attributes of <code>Dict{Symbol, String}</code></p><pre><code class="language-julia-repl hljs">julia&gt; oag = AttributeGraph(;vvertex_type=String, edge_type=String, graph_type=Dict{Symbol, String})
+{0, 0} undirected attribute Int64 graph
+</code></pre><p>You will not be surpised to see that probably all of the obvious operations are supported.</p><p>For example starting with the graph attributes</p><pre><code class="language-julia-repl hljs">julia&gt; addgraphattr!(oag, :ena, &quot;ena&quot;)
+&quot;ena&quot;
+
+julia&gt; addgraphattr!(oag, :dio, &quot;dio&quot;)
+&quot;dio&quot;
+
+julia&gt; graph_attr(oag)
+Dict{Symbol, String} with 2 entries:
+  :ena =&gt; &quot;ena&quot;
+  :dio =&gt; &quot;dio&quot;</code></pre><p>Now let&#39;s add some vertices and edges. Note we use the <a href="../API/#AttributeGraphs.addvertex!-Union{Tuple{AttributeGraph{T, G, V, E, R}}, Tuple{R}, Tuple{E}, Tuple{V}, Tuple{G}, Tuple{T}} where {T&lt;:Integer, G&lt;:AbstractGraph{T}, V&lt;:(AbstractVector), E, R}"><code>addvertex!</code></a><code>, [</code>addedge<code>](@ref) and friends instead of</code>add<em>vertex!<code>,</code>add</em>edge!` and friends to be 100% consistent. The second ones will also work, but you sooner or later you will reach a corrupted state.</p><pre><code class="language-julia-repl hljs">julia&gt; foreach(_ -&gt; addvertex!(oag), 1:10) # add 10 nodes
+
+julia&gt; foreach(x -&gt; addedge!(oag,x[1],x[2]), [(1,2), (1,3), (3,4), (1,5), (7,8)]) # add some edges</code></pre><p><code>addvertex!</code> immeadiately adds <code>missing</code> to the vertex attribute:</p><pre><code class="language-julia-repl hljs">julia&gt; vertex_attr(oag)
+10-element Vector{Union{Missing, String}}:
+ missing
+ missing
+ missing
+ missing
+ missing
+ missing
+ missing
+ missing
+ missing
+ missing</code></pre><pre><code class="language-julia-repl hljs">julia&gt; addvertexattr!(oag, 4, &quot;customattr4&quot;)
+&quot;customattr4&quot;
+
+julia&gt; vertex_attr(oag)
+10-element Vector{Union{Missing, String}}:
+ missing
+ missing
+ missing
+ &quot;customattr4&quot;
+ missing
+ missing
+ missing
+ missing
+ missing
+ missing</code></pre><p>Similar for edge attributes:</p><pre><code class="language-julia-repl hljs">julia&gt; addedgeattr!(oag, 1, 2, &quot;data_for_1-2&quot;)
+&quot;data_for_1-2&quot;
+
+julia&gt; addedgeattr!(oag, 3, 4, &quot;data_for_3-4&quot;)
+&quot;data_for_3-4&quot;
+
+julia&gt; edge_attr(oag)
+Dict{Tuple{Int64, Int64, Int64}, String} with 2 entries:
+  (1, 2, 1) =&gt; &quot;data_for_1-2&quot;
+  (3, 4, 1) =&gt; &quot;data_for_3-4&quot;</code></pre><p>Deleting a node will automatically update the indices and attributes</p><pre><code class="language-julia-repl hljs">julia&gt; remvertex!(oag, 2)
+true
+
+julia&gt; edge_attr(oag)
+Dict{Tuple{Int64, Int64, Int64}, String} with 1 entry:
+  (2, 3, 1) =&gt; &quot;data_for_3-4&quot;</code></pre><h2 id="General-approach"><a class="docs-heading-anchor" href="#General-approach">General approach</a><a id="General-approach-1"></a><a class="docs-heading-anchor-permalink" href="#General-approach" title="Permalink"></a></h2><p>Basically, <code>AttributeGraph</code> is a parametric type that can be anything. So you can customize it to do whatever you want. You might say that the lack of features is the basic feature here.</p><p>The basic use case for this is that you might often have some data <code>data</code> accompanying your graph <code>graph</code>. You don&#39;t want to always pass around a tuple of <code>(graph, data)</code>. Instead, you can simply use this package to load <code>data</code> in a <code>AttributeGraph</code> and pass it around more compactly.</p><p>An outrageous example follows</p><pre><code class="language-julia-repl hljs">julia&gt; using DataStructures, Random, Test
+
+julia&gt; Random.seed!(0); # for reproducibility
+
+julia&gt; gag = AttributeGraph(SimpleGraph(), (v) -&gt; v+randn(), DefaultDict{Tuple{Int, Int, String},Float64}(10.0), missing)
+{0, 0} undirected attribute Int64 graph</code></pre><p>Here the vertex attributes are given by a normally distributed random function with mean the vertex index. The edge attributes are a default dictionary indexed by a tuple <code>{Int, Int, String}</code> The graph attributes are non-existant so we pass in <code>missing</code>.</p><p>The following function will return our initializations</p><pre><code class="language-julia-repl hljs">julia&gt; vertex_attr(gag); # returns a function
+
+julia&gt; edge_attr(gag)
+DataStructures.DefaultDict{Tuple{Int64, Int64, String}, Float64, Float64}()
+
+julia&gt; graph_attr(gag)
+missing</code></pre><p>We can continue on constructing our graph</p><pre><code class="language-julia-repl hljs">julia&gt; add_vertices!(gag, 10)
+10
+
+julia&gt; foreach(v -&gt; add_edge!(gag, v, v+1), 1:nv(gag))
+
+julia&gt; gag 
+{10, 9} undirected attribute Int64 graph</code></pre><p>You can query right away the vertex stochastic attributes</p><pre><code class="language-julia-repl hljs">julia&gt; [vertex_attr(gag)(v) for v in vertices(gag)]
+10-element Vector{Float64}:
+ 1.9429705334461191
+ 2.1339227576531843
+ 4.5250689085124804
+ 4.123901231205597
+ 3.794227715740064
+ 6.311817175360248
+ 6.76535873503874
+ 6.912647706289468
+ 9.462310680431376
+ 9.919406913366794</code></pre><p>I hear you saying: &quot;But I can even do <code>vertex_attr(gag)(1235)</code>&quot; and it will still return a value even though the vertex doesn&#39;t exist. True. You can move on to customize your approach if you want that to fail. Eg:</p><pre><code class="language-julia-repl hljs">julia&gt; myvertexattr(ag::AttributeGraph, x) = has_vertex(ag, x) ? vertex_attr(gag)(x) : error(&quot;no attribute&quot;)
+myvertexattr (generic function with 1 method)
+julia&gt; myvertexattr(gag, 4)
+3.187569312095576
+
+julia&gt; @test_throws Exception myvertexattr(gag, 123) # now it throws an error
+Test Passed
+      Thrown: ErrorException</code></pre><p>Similarly you will need to manually fill up the attributes for the graph edge, e.g.:</p><pre><code class="language-julia-repl hljs">julia&gt; let e = first(edges(gag))
+           edge_attr(gag)[src(e), dst(e), &quot;class1&quot;] = 100
+           edge_attr(gag)[src(e), dst(e), &quot;class2&quot;] = 200
+       end;
+
+julia&gt; edge_attr(gag)
+DefaultDict{Tuple{Int64, Int64, String}, Float64, Float64} with 2 entries:
+  (1, 2, &quot;class1&quot;) =&gt; 100.0
+  (1, 2, &quot;class2&quot;) =&gt; 200.0</code></pre><p>Since we decided to use a <code>DefaultDict</code> though you can still query other edges</p><pre><code class="language-julia-repl hljs">julia&gt; edge_attr(gag)[1, 4, &quot;&quot;]
+10.0</code></pre><p>The general approach is mostly useful for customizable or quick and dirty situations.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Introduction</a><a class="docs-footer-nextpage" href="../API/">API »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Friday 10 March 2023 06:37">Friday 10 March 2023</span>. Using Julia version 1.8.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
