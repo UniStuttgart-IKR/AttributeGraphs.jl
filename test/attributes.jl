@@ -1,5 +1,5 @@
 @testset "attributes" begin
-    ag = AttributeGraph(;vvertex_type=String, edge_type=String, graph_type=Dict{Symbol, String})
+    ag = OAttributeGraph(;vertex_type=String, edge_type=String, graph_type=Dict{Symbol, String})
     all([addvertex!(ag) for _ in 1:5])
     addedge!(ag, 1, 2)
     addedge!(ag, 2, 1)
@@ -42,7 +42,7 @@
 
 
     # MultiDiGraph
-    amdg = AttributeGraph(MultiDiGraph();vvertex_type=String, edge_type=String, graph_type=Dict{Symbol, String})
+    amdg = OAttributeGraph(MultiDiGraph();vertex_type=String, edge_type=String, graph_type=Dict{Symbol, String})
     all([addvertex!(amdg) for _ in 1:5])
     addedge!(amdg, 1, 2)
     addedge!(amdg, 1, 2)

@@ -11,7 +11,7 @@ import Base: show, eltype
 export AttributeGraph, getgraph, vertex_attr, edge_attr, graph_attr 
 
 # opinionated API
-export addgraphattr!, remgraphattr!, addedgeattr!, remedgeattr!, addvertexattr!, remvertexattr!, addvertex!, remvertex!, addedge!, remedge!, hasvertexattr, hasedgeattr, hasgraphattr, getvertexattr, getedgeattr, getgraphattr
+export addgraphattr!, remgraphattr!, addedgeattr!, remedgeattr!, addvertexattr!, remvertexattr!, addvertex!, remvertex!, addedge!, remedge!, hasvertexattr, hasedgeattr, hasgraphattr, getvertexattr, getedgeattr, getgraphattr, OAttributeGraph
 
 include("abstractattributegraph.jl")
 include("attributegraph.jl")

@@ -1,3 +1,15 @@
+const OAttributeGraph{T,G,V,E,R} = AttributeGraph{T,G, Vector{Union{Missing,V}}, Dict{Tuple{T,T,T}, E}, R}
+
+function OAttributeGraph(gr::AbstractGraph{T}; vertex_type::Type=Missing, edge_type::Type=Missing, graph_type::Type=Missing) where T<:Integer
+    vertattrs = Vector{Union{Missing,vertex_type}}()
+    edgeattrs = Dict{Tuple{T,T,T}, edge_type}()
+    graphattr = graph_type()
+    AttributeGraph(gr, vertattrs, edgeattrs, graphattr)
+end
+
+OAttributeGraph(; vertex_type::Type=Missing, edge_type::Type=Missing, graph_type::Type=Missing) = OAttributeGraph(SimpleGraph(); vertex_type, edge_type, graph_type)
+
+"$(TYPEDSIGNATURES) Add an edge in the graph and update attributes and keys/indices"
 addedge!(ag::AttributeGraph, args...) = add_edge!(ag, args...)
 
 "$(TYPEDSIGNATURES) Add a vertex in the graph and push a missing value to the attributes"
@@ -138,7 +150,7 @@ hasedgeattr(ag::AttributeGraph{T,G,V,E}, args::T...) where {T<:Integer,G<:Abstra
 "$(TYPEDSIGNATURES) Check if edge has attribute for edge defined by the tuple `ktup`"
 hasedgeattr(ag::AttributeGraph{T,G,V,E}, ktup::Tuple) where {T<:Integer,G<:AbstractGraph{T},V,Kr,E<:AbstractDict{Kr}} = haskey(edge_attr(ag), ktup)
 "$(TYPEDSIGNATURES) Check if edge has attribute for edge `e`"
-hasedgeattr(ag::AttributeGraph{T,G,V,E}, e::AbstractEdge) where {T<:Integer,G<:AbstractGraph{T},V,E<:AbstractDict} = hasedgeattr(ag, src(e), dst(e))
+hasedgeattr(ag::AttributeGraph{T,G,V,E}, e::AbstractEdge) where {T<:Integer,G<:AbstractGraph{T},V,E<:AbstractDict} = hasedgeattr(ag, src(e), dst(e), 1)
 "$(TYPEDSIGNATURES) Check if edge has attribute for edge `e` and multiplicity `m`"
 hasedgeattr(ag::AttributeGraph{T,G,V,E}, e::AbstractEdge, m::T) where {T<:Integer,G<:AbstractGraph{T},V,E<:AbstractDict} = hasedgeattr(ag, src(e), dst(e), m)
 

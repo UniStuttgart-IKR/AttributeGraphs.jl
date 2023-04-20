@@ -1,5 +1,5 @@
 @testset "graphs" begin
-    ag = AttributeGraph()
+    ag = OAttributeGraph()
     @test all([addvertex!(ag) for _ in 1:5])
     @test addedge!(ag, 1, 2)
     @test !addedge!(ag, Edge(1, 2))
@@ -10,7 +10,7 @@
     @test ne(ag) == 2
 
     # Bidirectional
-    adg = AttributeGraph(SimpleDiGraph())
+    adg = OAttributeGraph(SimpleDiGraph())
     all([addvertex!(adg) for _ in 1:5])
     @test addedge!(adg, 1, 2)
     @test !addedge!(adg, Edge(1, 2))
@@ -21,7 +21,7 @@
     @test ne(adg) == 3
 
     # MutliGraph
-    amg = AttributeGraph(MultiGraph())
+    amg = OAttributeGraph(MultiGraph())
     @test all([addvertex!(amg) for _ in 1:5])
     @test addedge!(amg, 1, 2)
     @test addedge!(amg, Edge(1, 2))

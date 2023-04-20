@@ -12,13 +12,13 @@ As this might not be able to do some easy out-of-the-box operations we also prop
 
 ## Opinionated approach
 
-The default operation of `AttributeGraphs` is an opinionated one.
-By calling `AttributeGraph()`, you are already within the realm of our preferences.
+The default operation of `OAttributeGraphs` is an opinionated one.
+By calling `OAttributeGraph()`, you are already within the realm of our preferences.
 
 ```jldoctest walkthrough
 julia> using AttributeGraphs, Graphs
 
-julia> AttributeGraph() |> typeof
+julia> OAttributeGraph() |> typeof
 AttributeGraph{Int64, SimpleGraph{Int64}, Vector{Missing}, Dict{Tuple{Int64, Int64, Int64}, Missing}, Missing}
 ```
 
@@ -35,7 +35,7 @@ For trivial situation you should directly use [`graph_attr`](@ref).
 
 Following we define a `AttributeGraph` with vertex and edge attributes of `String` and graph attributes of `Dict{Symbol, String}`
 ```jldoctest walkthrough
-julia> oag = AttributeGraph(;vvertex_type=String, edge_type=String, graph_type=Dict{Symbol, String})
+julia> oag = OAttributeGraph(;vertex_type=String, edge_type=String, graph_type=Dict{Symbol, String})
 {0, 0} undirected attribute Int64 graph
 
 ```
@@ -57,7 +57,7 @@ Dict{Symbol, String} with 2 entries:
 ```
 
 Now let's add some vertices and edges.
-Note we use the [`addvertex!`](@ref)`, [`addedge`](@ref) and friends instead of `add_vertex!`, `add_edge!` and friends to be 100% consistent.
+Note we use the [`addvertex!`](@ref), [`addedge!`](@ref) and friends instead of `add_vertex!`, `add_edge!` and friends to be 100% consistent.
 The second ones will also work, but you sooner or later you will reach a corrupted state.
 ```jldoctest walkthrough
 julia> foreach(_ -> addvertex!(oag), 1:10) # add 10 nodes
