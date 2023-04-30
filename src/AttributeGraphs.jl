@@ -8,7 +8,7 @@ import Graphs.SimpleGraphs: AbstractSimpleGraph, SimpleGraphEdge, SimpleDiGraphE
 
 import Base: show, eltype
 
-export AttributeGraph, getgraph, vertex_attr, edge_attr, graph_attr 
+export AttributeGraph, OAttributeGraph, getgraph, vertex_attr, edge_attr, graph_attr 
 
 # opinionated API
 export addgraphattr!, remgraphattr!, addedgeattr!, remedgeattr!, addvertexattr!, remvertexattr!, addvertex!, remvertex!, addedge!, remedge!, hasvertexattr, hasedgeattr, hasgraphattr, getvertexattr, getedgeattr, getgraphattr, OAttributeGraph
