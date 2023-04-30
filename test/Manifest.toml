@@ -1,8 +1,8 @@
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.8.4"
+julia_version = "1.8.5"
 manifest_format = "2.0"
-project_hash = "02d420de94efaba0b2c4d8dedcf7bfdd385eac15"
+project_hash = "038f1ce769a2aa43be8c77efd48423f85d466af8"
 
 [[deps.ArnoldiMethod]]
 deps = ["LinearAlgebra", "Random", "StaticArrays"]
@@ -178,11 +178,9 @@ uuid = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
 [[deps.Unicode]]
 uuid = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
 
-[[deps.WMultiGraphs]]
+[[deps.WrappedMultiGraphs]]
 deps = ["DocStringExtensions", "Graphs", "LinearAlgebra"]
-git-tree-sha1 = "c3fde37bb50ee202a85f5c4f75cbb152f1c2caef"
-repo-rev = "main"
-repo-url = "https://github.com/UniStuttgart-IKR/WMultiGraphs.jl"
+git-tree-sha1 = "88de3088e29d97e2cd3c1f4a6e71f3754e338c64"
 uuid = "2815cbbd-0d7d-431b-a8da-1940906b5714"
 version = "0.1.0"
 
