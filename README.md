@@ -13,14 +13,6 @@ An opinionated API using `addvertex!, remvertex!, addedge!, remedge!` is exporte
 The opinionated implementation uses a Vector for the data properties of each vertex and a Dict for the edge properties.
 The Dict keys are updated after a vertex removal.
 
-### Similar packages and differences
-- [`MetaGraphs.jl`](https://github.com/JuliaGraphs/MetaGraphs.jl)
- - type-unstable
- - only implements `SimpleGraph` and `SimpleDiGraph`
-- [`MetaGraphsNext.jl`](https://github.com/JuliaGraphs/MetaGraphsNext.jl)
- - only implements `SimpleGraph` and `SimpleDiGraph`
- - user must define labels for every node
- - hardcoded properties types using Dictionaries
- - edge properties can only be identified by a tuple of vertices. (i.e. play nicely with multi graphs)
+See [the docs](https://unistuttgart-ikr.github.io/AttributeGraphs.jl/dev/#Similar-packages-and-differences) for a comparison with similar packages
 
 `AttributesGraphs.jl` is a simple and small project and might break often in favor of design improvements.
