@@ -4,6 +4,7 @@ function OAttributeGraph(gr::AbstractGraph{T}; vertex_type::Type=Missing, edge_t
     vertattrs = Vector{Union{Missing,vertex_type}}()
     edgeattrs = Dict{Tuple{T,T,T}, edge_type}()
     graphattr = graph_type()
+   # push!(vertex_attr, fill(vertex_type, nv(gr)...))
     AttributeGraph(gr, vertattrs, edgeattrs, graphattr)
 end
 
