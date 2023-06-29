@@ -4,7 +4,7 @@ $(TYPEDFIELDS)
 
 If the type for the vertices attributes and the edges attributes is a `AbstractVector` then there is a default behavior.
 """
-struct AttributeGraph{T<:Integer,G<:AbstractGraph{T},V,E,R} <: AbstractAttibuteGraph{T,G}
+struct AttributeGraph{T<:Integer,G<:AbstractGraph{T},V,E,R} <: AbstractAttributeGraph{T,G}
     "the wrapped graph"
     graph::G
     "the attributes for the vertices"
