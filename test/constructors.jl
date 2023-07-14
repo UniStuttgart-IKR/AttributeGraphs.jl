@@ -9,4 +9,6 @@
     @test try; OAttributeGraph(SimpleGraph()); true; catch e; false; end;
     @test try; OAttributeGraph(SimpleGraph(10)); true; catch e; false; end;
     @test try; OAttributeGraph(;vertex_type=String); true; catch e; false; end;
+
+
 end

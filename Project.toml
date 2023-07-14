@@ -8,6 +8,8 @@ DocStringExtensions = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"
 Graphs = "86223c79-3864-5bf0-83f7-82e725a168b6"
 Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"
 Run = "e7132d5a-96e2-11e9-15da-db8a129aaaf8"
+TestSetExtensions = "98d24dd4-01ad-11ea-1b02-c9a08f80db04"
+WrappedMultiGraphs = "2815cbbd-0d7d-431b-a8da-1940906b5714"
 
 [compat]
 DocStringExtensions = "0.9"

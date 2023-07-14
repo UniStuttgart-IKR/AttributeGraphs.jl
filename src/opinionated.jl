@@ -3,12 +3,13 @@ const OAttributeGraph{T,G,V,E,R} = AttributeGraph{T,G, Vector{Union{Missing,V}},
 function OAttributeGraph(gr::AbstractGraph{T}; vertex_type::Type=Missing, edge_type::Type=Missing, graph_type::Type=Missing) where T<:Integer
     vertattrs = Vector{Union{Missing,vertex_type}}()
     edgeattrs = Dict{Tuple{T,T,T}, edge_type}()
+    push!(vertattrs, fill(missing, nv(gr))...)
     graphattr = graph_type()
-   # push!(vertex_attr, fill(vertex_type, nv(gr)...))
     AttributeGraph(gr, vertattrs, edgeattrs, graphattr)
 end
 
 OAttributeGraph(; vertex_type::Type=Missing, edge_type::Type=Missing, graph_type::Type=Missing) = OAttributeGraph(SimpleGraph(); vertex_type, edge_type, graph_type)
+
 
 "$(TYPEDSIGNATURES) Add an edge in the graph and update attributes and keys/indices"
 addedge!(ag::AttributeGraph, args...) = add_edge!(ag, args...)

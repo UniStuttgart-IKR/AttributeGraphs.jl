@@ -4,5 +4,5 @@ using Test, TestSetExtensions
 using WrappedMultiGraphs
 
 @testset "AttributeGraphs.jl" begin
-    @includetests ["constructors","graphs", "attributes",  "opinionatedtest"]
+    @includetests ["constructors","graphs", "attributes",  "opinionated"]
 end
