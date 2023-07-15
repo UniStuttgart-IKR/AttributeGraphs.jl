@@ -9,4 +9,7 @@
     @test try; OAttributeGraph(SimpleGraph()); true; catch e; false; end;
     @test try; OAttributeGraph(SimpleGraph(10)); true; catch e; false; end;
     @test try; OAttributeGraph(;vertex_type=String); true; catch e; false; end;
+
+    oag = OAttributeGraph(SimpleGraph(5))
+    @test nv(oag) == length(vertex_attr(oag))
 end
