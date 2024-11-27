@@ -15,7 +15,7 @@ addedge!(ag::AttributeGraph, args...) = add_edge!(ag, args...)
 
 "$(TYPEDSIGNATURES) Add a vertex in the graph and push a missing value to the attributes"
 function addvertex!(ag::AttributeGraph{T,G,V,E,R}) where {T<:Integer,G<:AbstractGraph{T},V<:AbstractVector,E,R}
-    res = add_vertex!(getgraph(ag))
+    res = add_vertex!(getwgraph(ag))
     res && push!(vertex_attr(ag), missing)
     res
 end
@@ -25,7 +25,7 @@ function remvertex!(ag::AttributeGraph{T,G,V,E,R}, u::T) where {T<:Integer,G<:Ab
     # find influenced edges
     dictedgekeys = [key for key in keys(edge_attr(ag)) if key[1]==u || key[2]==u]
     map(dictedgekeys) do dk; delete!(edge_attr(ag), dk) end
-    res = rem_vertex!(getgraph(ag), u)
+    res = rem_vertex!(getwgraph(ag), u)
     res && deleteat!(vertex_attr(ag), u)
     updateedgeattr_after_vertex_removal!(ag, u)
     res
@@ -36,7 +36,7 @@ function remedge!(ag::AttributeGraph{T,G,V,E,R}, s::T, d::T, m::T=1) where {T<:I
     # find influenced edges
     cedg = count(edges(ag)) do ed; s==src(ed) || d==src(ed) end 
     if m <= cedg
-        rem_edge!(getgraph(ag), s, d)
+        rem_edge!(getwgraph(ag), s, d)
         remedgeattr!(ag, s, d, m)
         updateedgeattr_after_edge_removal!(ag, s, d, m)
     end
