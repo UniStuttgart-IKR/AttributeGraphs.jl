@@ -1,7 +1,7 @@
 name = "AttributeGraphs"
 uuid = "d091dd56-f8c5-469d-b7f7-ff847498145f"
 authors = ["fchrstou <filippos.christou@ikr.uni-stuttgart.de> and contributors"]
-version = "0.3.1"
+version = "0.3.2"
 
 [deps]
 DocStringExtensions = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"

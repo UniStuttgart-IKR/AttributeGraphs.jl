@@ -21,9 +21,9 @@ AttributeGraph{T,G,V,E,R}() where {T<:Integer, G<:AbstractGraph{T}, V, E, R} = A
 function Base.copy(ag::AttributeGraph)
     return AttributeGraph(
         Base.copy(getfield(ag, :graph)),
-        Base.copy(getfield(ag, :vertex_attr)),
-        Base.copy(getfield(ag, :edge_attr)),
-        Base.copy(getfield(ag, :graph_attr)),
+        isimmutable(getfield(ag, :vertex_attr)) ? getfield(ag, :vertex_attr) : Base.copy(getfield(ag, :vertex_attr)),
+        isimmutable(getfield(ag, :edge_attr)) ? getfield(ag, :edge_attr) : Base.copy(getfield(ag, :edge_attr)),
+        isimmutable(getfield(ag, :graph_attr)) ? getfield(ag, :graph_attr) : Base.copy(getfield(ag, :graph_attr)),
     )
 end
 
