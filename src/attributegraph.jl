@@ -18,6 +18,24 @@ end
 Base.zero(ag::AttributeGraph{T,G,V,E,R}) where {T<:Integer, G<:AbstractGraph, V, E, R} = AttributeGraph{T,G,V,E,R}()
 AttributeGraph{T,G,V,E,R}() where {T<:Integer, G<:AbstractGraph{T}, V, E, R} = AttributeGraph(G(), V(), E(), R())
 
+function Base.copy(ag::AttributeGraph)
+    return AttributeGraph(
+        Base.copy(getfield(ag, :graph)),
+        Base.copy(getfield(ag, :vertex_attr)),
+        Base.copy(getfield(ag, :edge_attr)),
+        Base.copy(getfield(ag, :graph_attr)),
+    )
+end
+
+function Base.deepcopy(ag::AttributeGraph)
+    return AttributeGraph(
+        Base.deepcopy(getfield(ag, :graph)),
+        Base.deepcopy(getfield(ag, :vertex_attr)),
+        Base.deepcopy(getfield(ag, :edge_attr)),
+        Base.deepcopy(getfield(ag, :graph_attr)),
+    )
+end
+
 """
 $(TYPEDSIGNATURES)
 
